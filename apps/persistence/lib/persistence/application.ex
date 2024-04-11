@@ -9,9 +9,7 @@ defmodule Persistence.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Persistence.Repo,
-      # Start the Telemetry supervisor
-      PersistenceWeb.Telemetry
+      Persistence.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -19,7 +17,4 @@ defmodule Persistence.Application do
     opts = [strategy: :one_for_one, name: Persistence.Supervisor]
     Supervisor.start_link(children, opts)
   end
-
-  # Tell Phoenix to update the endpoint configuration
-  # whenever the application is updated.
 end
