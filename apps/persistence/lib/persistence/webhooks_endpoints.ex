@@ -9,10 +9,12 @@ defmodule Persistence.WebhooksEndpoints do
     |> Repo.insert()
   end
 
-  def get_endpoint(endpoint), do: Repo.get!(WebhookEndpoint, endpoint)
+  def get_endpoint(endpoint), do: WebhookEndpoint.query(endpoint) |> Repo.all() |> List.first()
 
-  def update_endpoint(params, attrs) do
-    params
+  def update_endpoint(endpoint, attrs) do
+    WebhookEndpoint.query(endpoint)
+    |> Repo.all()
+    |> List.first()
     |> WebhookEndpoint.changeset(attrs)
     |> Repo.update()
   end

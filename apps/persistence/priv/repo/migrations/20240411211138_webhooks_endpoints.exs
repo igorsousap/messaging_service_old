@@ -7,6 +7,7 @@ defmodule Persistence.Repo.Migrations.WebhooksEndpoints do
       add :endpoint, :string
       add :event_type, :string
       add :client, :string
+      add :schedule_at, :utc_datetime
 
       timestamps()
     end

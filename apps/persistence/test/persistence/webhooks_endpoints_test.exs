@@ -1,8 +1,7 @@
-defmodule Persistence.WebhookEndpointTest do
-  alias Persistence.WebhooksEndpoints
+defmodule Persistence.WebhooksEndpointsTest do
   use Persistence.DataCase
 
-  alias Persistence.WebhookEndpoint
+  alias Persistence.WebhooksEndpoints
   alias Persistence.WebhooksEndpoints.WebhookEndpoint
 
   describe "create_endpoint/1" do
@@ -10,23 +9,23 @@ defmodule Persistence.WebhookEndpointTest do
       assert {:ok, %WebhookEndpoint{}} =
                WebhooksEndpoints.create_endpoint(%{
                  endpoint: "www.teste.com",
-                 event_type: "now",
-                 client: "teste"
+                 event_type: "test",
+                 client: "test"
                })
     end
 
     test "should get invalid message quand passed same endpoint" do
       WebhooksEndpoints.create_endpoint(%{
         endpoint: "www.teste.com",
-        event_type: "now",
-        client: "teste"
+        event_type: "test",
+        client: "test"
       })
 
       assert {:error, %Ecto.Changeset{}} ==
                WebhooksEndpoints.create_endpoint(%{
                  endpoint: "www.teste.com",
-                 event_type: "now",
-                 client: "teste"
+                 event_type: "test",
+                 client: "test"
                })
     end
   end
@@ -35,8 +34,8 @@ defmodule Persistence.WebhookEndpointTest do
     test "should get a endpoint" do
       WebhooksEndpoints.create_endpoint(%{
         endpoint: "www.teste.com",
-        event_type: "now",
-        client: "teste"
+        event_type: "test",
+        client: "test"
       })
 
       assert {:ok, %WebhookEndpoint{}} = WebhooksEndpoints.get_endpoint("www.teste.com")
@@ -47,7 +46,7 @@ defmodule Persistence.WebhookEndpointTest do
     test "should update a endpoint" do
       WebhooksEndpoints.create_endpoint(%{
         endpoint: "www.teste.com",
-        event_type: "now",
+        event_type: "teste",
         client: "teste"
       })
 
