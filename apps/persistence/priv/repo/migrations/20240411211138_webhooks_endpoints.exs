@@ -13,5 +13,6 @@ defmodule Persistence.Repo.Migrations.WebhooksEndpoints do
     end
 
     create unique_index(:webhooks_endpoints, [:endpoint])
+    create unique_index(:webhooks_endpoints, [:client])
   end
 end
