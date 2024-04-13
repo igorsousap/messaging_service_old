@@ -24,7 +24,7 @@ defmodule ProducerClient.MixProject do
   def application do
     [
       mod: {ProducerClient.Application, []},
-      application: [:logger, :runtime_tools]
+      application: [:logger, :runtime_tools, :persistence]
     ]
   end
 
@@ -47,9 +47,9 @@ defmodule ProducerClient.MixProject do
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
       {:jason, "~> 1.2"},
-      {:persistence, in_umbrella: true},
       # Kafka connection
-      {:kaffe, "~> 1.0"}
+      {:kaffe, "~> 1.0"},
+      {:persistence, in_umbrella: true}
     ]
   end
 

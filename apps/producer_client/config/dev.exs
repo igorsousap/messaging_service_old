@@ -53,4 +53,5 @@ config :phoenix, :plug_init_mode, :runtime
 config :kaffe,
   producer: [
     endpoints: [localhost: 9092],
-    topics: ["currencie_converter"]]
+    topics: ["currencie_converter"]
+  ]
