@@ -20,7 +20,7 @@ defmodule Persistence.MixProject do
   def application do
     [
       mod: {Persistence.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :producer_client]
     ]
   end
 

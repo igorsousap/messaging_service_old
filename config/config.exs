@@ -16,3 +16,9 @@ import Config
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 #
+config :phoenix, :json_library, Jason
+
+config :kaffe,
+  producer: [
+    endpoints: [localhost: 9092],
+    topics: ["currencie_converter"]]

@@ -7,6 +7,8 @@ defmodule ProducerClientWeb.Router do
 
   scope "/api", ProducerClientWeb do
     pipe_through :api
+
+    post "/convert_value", BroadwayController, :send_message
   end
 
   # Enables LiveDashboard only for development
