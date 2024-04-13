@@ -23,3 +23,9 @@ erl_crash.dump
 /tmp/
 
 postgres-data
+
+.elixir_ls
+
+_build
+
+funcs
