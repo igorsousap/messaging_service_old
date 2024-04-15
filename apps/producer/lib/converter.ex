@@ -1,14 +1,11 @@
 defmodule Converter do
   require Logger
-  alias Broadway.TeslaClient.Client
+  alias ProducerMessage.TeslaClient.Client
 
   def converter_table(currencie_from, currencie_to, value_to_convert) do
     case Client.currencie(currencie_from) do
       {:ok, body} ->
         table_currencies = body["conversion_rates"]
-
-        IO.inspect(table_currencies[currencie_to], label: :currencie_to)
-        IO.inspect(value_to_convert, label: :value)
 
         value_converted =
           value_to_convert * table_currencies[currencie_to]

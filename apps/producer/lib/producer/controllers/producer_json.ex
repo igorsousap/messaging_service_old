@@ -1,4 +1,4 @@
-defmodule Producer.BroadwayJSON do
+defmodule Producer.ProducerJSON do
   def index(%{message: :sucess_send}) do
     "success send"
   end

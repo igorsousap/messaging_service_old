@@ -1,4 +1,4 @@
-defmodule Broadway.TeslaClient.Client do
+defmodule ProducerMessage.TeslaClient.Client do
   use Tesla
   require Logger
 

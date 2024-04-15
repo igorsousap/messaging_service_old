@@ -1,4 +1,4 @@
-defmodule Producer.BroadwayController do
+defmodule Producer.ProducerController do
   use Producer, :controller
   alias Broadway
 
@@ -7,18 +7,14 @@ defmodule Producer.BroadwayController do
   def send_message(conn, params) do
     message_build = build_params(params)
 
-    IO.inspect(params, label: :params)
-    IO.inspect(message_build, label: :message)
-
     case Broadway.broadway_message(message_build) do
       {:error, :unknow_reason} ->
         render(conn, :index, %{erro: :unknow_reason})
 
       {:error, body} ->
-        IO.inspect(body)
         render(conn, :index, %{error: body})
 
-        {:ok, :message_send} ->
+      {:ok, :message_send} ->
         render(conn, :index, %{message: :sucess_send})
     end
   end

@@ -6,27 +6,37 @@ defmodule Persistence.WebhooksEndpoints.WebhookEndpoint do
   @primary_key {:id, Ecto.UUID, autogenerate: true}
 
   schema "webhooks_endpoints" do
-    field :endpoint, :string
-    field :event_type, :string
-    field :client, :string
-    field :schedule_at, :utc_datetime, default: nil
+    field(:endpoint, :string)
+    field(:event_type, :string)
+    field(:client, :string)
 
     timestamps()
   end
 
   def changeset(endpoint \\ %__MODULE__{}, params) do
     endpoint
-    |> cast(params, [:endpoint, :event_type, :client, :schedule_at])
+    |> cast(params, [:endpoint, :event_type, :client])
+    |> unique_constraint([:endpoint])
     |> validate_required([:endpoint, :event_type, :client])
   end
 
-  def query(%{endpoint: endpoint, client: client}) do
-    query =
-      from w in __MODULE__,
-        where:
-          w.endpoint == ^endpoint and
-            w.client == ^client
+  def query(params) do
+    case params do
+      %{"endpoint" => endpoint} ->
+        query =
+          from(w in __MODULE__,
+            where: w.endpoint == ^endpoint
+          )
 
-    IO.inspect(query)
+        query
+
+      %{"client" => client} ->
+        query =
+          from(w in __MODULE__,
+            where: w.client == ^client
+          )
+
+        query
+    end
   end
 end

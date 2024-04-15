@@ -9,9 +9,8 @@
 # move said applications out of the umbrella.
 import Config
 
-config :producer,
-  ecto_repos: [Producer.Repo],
-  generators: [context_app: false]
+config :persistence,
+  ecto_repos: [Persistence.Repo]
 
 # Configures the endpoint
 config :producer, Producer.Endpoint,

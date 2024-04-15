@@ -1,8 +1,7 @@
 defmodule Broadway do
   require Logger
-
   alias Converter
-  alias Broadway.Sender.SenderMessage
+  alias ProducerMessage.Sender.SenderMessage
 
   def broadway_message(
         %{
@@ -12,7 +11,7 @@ defmodule Broadway do
         } = params
       ) do
     valued_converted = Converter.converter_table(currencie_from, currencie_to, value_to_convert)
-    IO.inspect(valued_converted, label: :value)
+    params = Map.put(params, :message_id, Ecto.UUID.autogenerate())
 
     case valued_converted do
       {:error, :unsuported_code} ->
@@ -29,7 +28,6 @@ defmodule Broadway do
     params
     |> Map.put(:value_to_convert, Integer.to_string(params.value_to_convert))
     |> Map.merge(value_converted)
-    |> IO.inspect(label: :message)
   end
 
   defp build_broadway_message(value_converted, %{value_to_convert: value_to_convert} = params)
@@ -37,6 +35,5 @@ defmodule Broadway do
     params
     |> Map.put(:value_to_convert, Float.to_string(params.value_to_convert))
     |> Map.merge(value_converted)
-    |> IO.inspect(label: :message)
   end
 end
