@@ -1,13 +1,13 @@
 defmodule Producer.ProducerController do
   use Producer, :controller
-  alias Broadway
+  alias ProducerMessage
 
   plug :accepts, ~w(json ...)
 
   def send_message(conn, params) do
     message_build = build_params(params)
 
-    case Broadway.broadway_message(message_build) do
+    case ProducerMessage.producer_message(message_build) do
       {:error, :unknow_reason} ->
         render(conn, :index, %{erro: :unknow_reason})
 

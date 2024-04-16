@@ -20,6 +20,6 @@ defmodule WebhookService.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [{:broadway, "~> 1.0"}]
   end
 end
