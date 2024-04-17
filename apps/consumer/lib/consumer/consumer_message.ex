@@ -43,21 +43,17 @@ defmodule Consumer.ConsumerMessage do
            }),
          message_update <-
            update_message_endpoint(message, endpoint) do
-      IO.inspect(message_update, label: :handle_message)
       message_update
     end
   end
 
   @impl true
   def handle_batch(_, messages, _, _) do
-    IO.inspect(messages, label: :handle_batc)
     ProcessMessage.message(messages)
     messages
   end
 
   defp update_message_endpoint(message, endpoint) do
-    IO.inspect(message, label: :message)
-    IO.inspect(endpoint, label: :endpoint)
     [endpoint | _] = endpoint
 
     endpoint = Map.fetch!(endpoint, :endpoint)

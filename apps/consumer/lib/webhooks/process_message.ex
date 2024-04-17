@@ -1,9 +1,11 @@
 defmodule Webhooks.ProcessMessage do
+  alias Schema.Webhook
+
   def message(messages) do
     messages
     |> Enum.map(fn messages -> build_message(messages.data) end)
+    |> Enum.map(&Webhook.changeset(&1))
     |> Enum.map(fn message -> Webhooks.WorkerMessage.new(message) end)
-    |> IO.inspect(label: :new_oban)
     |> Oban.insert_all()
   end
 

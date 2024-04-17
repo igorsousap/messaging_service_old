@@ -27,7 +27,7 @@ defmodule Schema.Webhook do
   ]
 
   @primary_key false
-
+  @derive {Jason.Encoder, only: @valied_required}
   embedded_schema do
     field(:endpoint, :string)
     field(:event_type, :string)
