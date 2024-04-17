@@ -10,7 +10,8 @@ defmodule Consumer.Application do
     children = [
       # Starts a worker by calling: Consumer.Worker.start_link(arg)
       # {Consumer.Worker, arg}
-      {Consumer.ConsumerMessage, []}
+      {Consumer.ConsumerMessage, []},
+      {Oban, Application.fetch_env!(:consumer, Oban)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

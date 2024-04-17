@@ -2,6 +2,8 @@ defmodule Consumer.ConsumerMessage do
   use Broadway
 
   alias Broadway.Message
+  alias Persistence.WebhooksEndpoints
+  alias Webhooks.ProcessMessage
 
   def start_link(_opts) do
     Broadway.start_link(__MODULE__,
@@ -33,15 +35,37 @@ defmodule Consumer.ConsumerMessage do
 
   @impl true
   def handle_message(_, message, _) do
-    message
-    |> IO.inspect(label: :message)
-    |> Message.update_data(fn data -> Jason.decode!(data) end)
-    |> IO.inspect(lavel: :message_updated)
+    with message <- Message.update_data(message, fn data -> Jason.decode!(data) end),
+         endpoint <-
+           WebhooksEndpoints.get_client(%{
+             "event_type" => message.data["event_type"],
+             "client" => message.data["client"]
+           }),
+         message_update <-
+           update_message_endpoint(message, endpoint) do
+      IO.inspect(message_update, label: :handle_message)
+      message_update
+    end
   end
 
   @impl true
   def handle_batch(_, messages, _, _) do
-    IO.inspect(messages, label: "Got batch")
+    IO.inspect(messages, label: :handle_batc)
+    ProcessMessage.message(messages)
     messages
+  end
+
+  defp update_message_endpoint(message, endpoint) do
+    IO.inspect(message, label: :message)
+    IO.inspect(endpoint, label: :endpoint)
+    [endpoint | _] = endpoint
+
+    endpoint = Map.fetch!(endpoint, :endpoint)
+
+    message_update =
+      message
+      |> Message.update_data(fn data -> Map.put(data, "endpoint", endpoint) end)
+
+    message_update
   end
 end

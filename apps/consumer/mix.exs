@@ -29,7 +29,9 @@ defmodule Consumer.MixProject do
       {:kaffe, "~> 1.0"},
       {:broadway, "~> 1.0"},
       {:broadway_kafka, "~> 0.4.1"},
-      {:oban, "~> 2.17"}
+      {:oban, "~> 2.17"},
+      {:persistence, in_umbrella: true},
+      {:tesla, "~> 1.4"}
     ]
   end
 end

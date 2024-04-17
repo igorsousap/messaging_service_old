@@ -30,7 +30,7 @@ defmodule ProducerMessage.Sender.SenderMessage do
       value:
         %{
           "message_id" => data.message_id,
-          "endpoint" => data.endpoint,
+          "event_type" => data.event_type,
           "client" => data.client,
           "currencie_from" => data.currencie_from,
           "currencie_to" => data.currencie_to,

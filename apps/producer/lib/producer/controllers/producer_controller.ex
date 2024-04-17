@@ -21,7 +21,7 @@ defmodule Producer.ProducerController do
 
   defp build_params(params) do
     %{
-      endpoint: params["endpoint"],
+      event_type: params["event_type"],
       client: params["client"],
       currencie_from: params["currencie_from"],
       currencie_to: params["currencie_to"],

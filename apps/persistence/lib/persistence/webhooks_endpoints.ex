@@ -10,10 +10,10 @@ defmodule Persistence.WebhooksEndpoints do
     |> Repo.insert()
   end
 
-  def get_endpoint(params),
+  def get_client(params),
     do: WebhookEndpoint.query(params) |> Repo.all()
 
-  def update_user(params) do
+  def update_endpoint(params) do
     query = WebhookEndpoint.query(params)
 
     case Repo.all(query) do
