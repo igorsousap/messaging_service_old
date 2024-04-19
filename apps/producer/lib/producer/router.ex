@@ -9,7 +9,7 @@ defmodule Producer.Router do
     post "/convert_value", ProducerController, :send_message
 
     post "/user", RegisterUserController, :register_user
-    put "/user", RegisterUserController, :update_user
+    put "/user/:id", RegisterUserController, :update_user
     get "/user/:client", RegisterUserController, :get_user
 
     pipe_through :api

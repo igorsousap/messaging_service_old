@@ -22,10 +22,20 @@ defmodule Persistence.WebhooksEndpoints.WebhookEndpoint do
 
   def query(params) do
     case params do
-      %{"endpoint" => endpoint} ->
+      %{"client" => client, "event_type" => event_type} ->
         query =
           from(w in __MODULE__,
-            where: w.endpoint == ^endpoint
+            where:
+              w.client == ^client and
+                w.event_type == ^event_type
+          )
+
+        query
+
+      %{"id" => id} ->
+        query =
+          from(w in __MODULE__,
+            where: w.id == ^id
           )
 
         query

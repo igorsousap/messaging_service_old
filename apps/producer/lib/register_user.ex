@@ -16,7 +16,7 @@ defmodule RegisterUser do
   end
 
   def update_client(params) do
-    case WebhooksEndpoints.update_user(params) do
+    case WebhooksEndpoints.update_endpoint(params) do
       {:error, _reason} ->
         Logger.error("Endpoint not updated")
         {:ok, :not_found}
@@ -27,8 +27,8 @@ defmodule RegisterUser do
     end
   end
 
-  def get_user(params) do
-    case WebhooksEndpoints.get_endpoint(params) do
+  def get_client(params) do
+    case WebhooksEndpoints.get_client(params) do
       [] ->
         Logger.error("Endpoint not find")
         {:error, :not_find}

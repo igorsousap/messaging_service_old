@@ -25,7 +25,7 @@ defmodule Producer.RegisterUserController do
   end
 
   def get_user(conn, params) do
-    case RegisterUser.get_user(params) do
+    case RegisterUser.get_client(params) do
       {:error, error} ->
         render(conn, :index, %{error: error})
 
