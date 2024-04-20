@@ -4,6 +4,7 @@ defmodule Producer.ProducerController do
 
   plug :accepts, ~w(json ...)
 
+  @spec send_message(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def send_message(conn, params) do
     message_build = build_params(params)
 

@@ -37,7 +37,7 @@ defmodule Consumer.ConsumerMessage do
   def handle_message(_, message, _) do
     with message <- Message.update_data(message, fn data -> Jason.decode!(data) end),
          endpoint <-
-           WebhooksEndpoints.get_client(%{
+           WebhooksEndpoints.get_endpoint(%{
              "event_type" => message.data["event_type"],
              "client" => message.data["client"]
            }),

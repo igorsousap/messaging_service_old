@@ -1,6 +1,34 @@
 defmodule ProducerMessage.Sender.SenderMessage do
+  @moduledoc """
+  The Sender Message Kafka Context.
+  """
   require Logger
 
+  @doc """
+  Send a message with the data to kafka
+
+  ## Examples
+
+      iex> ProducerMessage.Sender.SenderMessage.send_message %{
+          message_id: Ecto.UUID.generate(),
+          event_type: "send.message.converter",
+          client: "teste",
+          currencie_from: "USD",
+          currencie_to: "BRL",
+          value_to_convert: "50",
+          value_converted: "256" }
+
+  """
+
+  @spec send_message(%{
+          :client => String.t(),
+          :currencie_from => String.t(),
+          :currencie_to => String.t(),
+          :event_type => String.t(),
+          :message_id => String.t(),
+          :value_converted => String.t(),
+          :value_to_convert => String.t()
+        }) :: {:error, any()} | {:ok, :message_send}
   def send_message(data) do
     Logger.info("Starting to Produce Message")
 

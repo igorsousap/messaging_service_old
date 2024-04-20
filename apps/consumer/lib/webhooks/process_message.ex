@@ -1,6 +1,7 @@
 defmodule Webhooks.ProcessMessage do
   alias Schema.Webhook
 
+  @spec message(List.t()) :: [Oban.Job.t()] | Ecto.Multi.t()
   def message(messages) do
     messages
     |> Enum.map(fn messages -> build_message(messages.data) end)
