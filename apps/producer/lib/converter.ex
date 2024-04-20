@@ -1,7 +1,20 @@
 defmodule Converter do
+  @moduledoc """
+  Module who convert the currencies and give the value converted
+  """
   require Logger
   alias ProducerMessage.TeslaClient.Client
 
+  @doc """
+  Take the table from currencies and convert for the given currencies
+  ## Examples
+
+      iex> Converter.converter_table("USD", "BLR", "50")
+
+  """
+
+  @spec converter_table(String.t(), String.t(), Integer.t()) ::
+          {:error, :unsuported_code} | %{value_converted: binary()}
   def converter_table(currencie_from, currencie_to, value_to_convert) do
     case Client.currencie(currencie_from) do
       {:ok, body} ->

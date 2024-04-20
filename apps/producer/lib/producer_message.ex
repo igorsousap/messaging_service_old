@@ -1,8 +1,32 @@
 defmodule ProducerMessage do
+  @moduledoc """
+  Module whos process message and create the message to be sendo to kafka
+  """
   require Logger
   alias Converter
   alias ProducerMessage.Sender.SenderMessage
 
+  @doc """
+  Process the message and create the map with the information necessary to be sendo to kafka
+  ## Examples
+
+      iex> ProducerMessage.producer_message(%{
+          client: "teste",
+          event_type: "send.message.converter",
+          currencie_from: "USD",
+          currencie_to: "BRL",
+          value_to_convert: 50
+        })
+
+  """
+
+  @spec producer_message(%{
+          :event_type => String.t(),
+          :client => String.t(),
+          :currencie_from => String.t(),
+          :currencie_to => String.t(),
+          :value_to_convert => Integer.t()
+        }) :: {:error, any()} | {:ok, :message_send}
   def producer_message(
         %{
           currencie_from: currencie_from,

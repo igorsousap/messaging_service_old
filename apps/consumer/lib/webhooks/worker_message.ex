@@ -6,6 +6,8 @@ defmodule Webhooks.WorkerMessage do
   alias Webhooks.ClientMessage
 
   @impl Oban.Worker
+  @spec perform(Oban.Job.t()) ::
+          {:error, :no_scheme | :not_send | :nxdomain} | {:ok, :success_send}
   def perform(%Oban.Job{
         args:
           %{
