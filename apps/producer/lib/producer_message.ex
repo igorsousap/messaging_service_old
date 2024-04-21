@@ -25,7 +25,8 @@ defmodule ProducerMessage do
           :client => String.t(),
           :currencie_from => String.t(),
           :currencie_to => String.t(),
-          :value_to_convert => Integer.t()
+          :value_to_convert => Integer.t(),
+          :schedule_at => String.t()
         }) :: {:error, any()} | {:ok, :message_send}
   def producer_message(
         %{

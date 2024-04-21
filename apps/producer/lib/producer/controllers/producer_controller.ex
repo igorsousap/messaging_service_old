@@ -26,7 +26,8 @@ defmodule Producer.ProducerController do
       client: params["client"],
       currencie_from: params["currencie_from"],
       currencie_to: params["currencie_to"],
-      value_to_convert: params["value_to_convert"]
+      value_to_convert: params["value_to_convert"],
+      schedule_at: params["schedule_at"]
     }
   end
 end
