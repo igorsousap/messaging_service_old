@@ -23,7 +23,8 @@ defmodule Schema.Webhook do
     :currencie_to,
     :message_id,
     :value_to_convert,
-    :value_converted
+    :value_converted,
+    :schedule_at
   ]
 
   @primary_key false

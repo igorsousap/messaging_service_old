@@ -27,7 +27,8 @@ defmodule ProducerMessage.Sender.SenderMessage do
           :event_type => String.t(),
           :message_id => String.t(),
           :value_converted => String.t(),
-          :value_to_convert => String.t()
+          :value_to_convert => String.t(),
+          :schedule_at => String.t()
         }) :: {:error, any()} | {:ok, :message_send}
   def send_message(data) do
     Logger.info("Starting to Produce Message")
@@ -63,7 +64,8 @@ defmodule ProducerMessage.Sender.SenderMessage do
           "currencie_from" => data.currencie_from,
           "currencie_to" => data.currencie_to,
           "value_to_convert" => data.value_to_convert,
-          "value_converted" => data.value_converted
+          "value_converted" => data.value_converted,
+          "schedule_at" => data.schedule_at
         }
         |> Jason.encode!()
     }
