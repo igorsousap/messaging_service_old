@@ -51,7 +51,7 @@ config :consumer, Oban,
   engine: Oban.Engines.Lite,
   queues: [default: 10],
   repo: Persistence.Repo,
-  plugins: [Oban.Plugins.Pruner]
+  plugins: [Oban.Plugins.Pruner, Oban.Plugins.Lifeline]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
