@@ -1,5 +1,5 @@
 defmodule Webhooks.WorkerMessage do
-  use Oban.Worker
+  use Oban.Worker, max_attempts: 3
 
   require Logger
 
@@ -14,29 +14,30 @@ defmodule Webhooks.WorkerMessage do
             "client" => client,
             "endpoint" => endpoint,
             "event_type" => event_type
-          } = args
+          } = data,
+        attempt: attempt
       }) do
     Logger.info(
-      "Trying send message to #{endpoint}, from client: #{client} and event #{event_type}"
+      "Trying send message to #{endpoint}, from client: #{client} and event #{event_type} at attempt #{attempt}"
     )
 
-    with {:ok, %Tesla.Env{status: 200}} <- ClientMessage.send_webhook(args, endpoint) do
+    with {:ok, %Tesla.Env{status: 200}} <- ClientMessage.send_webhook(data, endpoint) do
       Logger.info(
-        "Success send message to #{endpoint}, from client: #{client} and event #{event_type}"
+        "Success send message to #{endpoint}, from client: #{client} and event #{event_type}, at attempt: #{attempt}"
       )
 
       {:ok, :success_send}
     else
-      {:error, %Tesla.Env{status: status}} ->
-        Logger.error("Cant send message status: #{status}")
+      {:ok, %Tesla.Env{status: status}} ->
+        Logger.error("Cant send message status: #{status}, attempt: #{attempt}")
         {:error, :not_send}
 
       {:error, {:no_scheme}} ->
-        Logger.error("Cant send message {:error, :no_scheme}")
+        Logger.error("Cant send message {:error, :no_scheme}, attempt: #{attempt}")
         {:error, :no_scheme}
 
       {:error, :nxdomain} ->
-        Logger.error("Cant send message {:error, :nxdomain}")
+        Logger.error("Cant send message {:error, :nxdomain}, attempt: #{attempt}")
         {:error, :nxdomain}
     end
   end

@@ -11,7 +11,7 @@ defmodule ProducerMessage.Sender.SenderMessage do
 
       iex> ProducerMessage.Sender.SenderMessage.send_message %{
           message_id: Ecto.UUID.generate(),
-          event_type: "send.message.converter",
+          event_type: "sender.message_converter",
           client: "teste",
           currencie_from: "USD",
           currencie_to: "BRL",

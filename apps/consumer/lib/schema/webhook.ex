@@ -3,18 +3,6 @@ defmodule Schema.Webhook do
 
   import Ecto.Changeset
 
-  @valied_required [
-    :endpoint,
-    :event_type,
-    :client,
-    :currencie_from,
-    :currencie_to,
-    :message_id,
-    :value_to_convert,
-    :value_converted,
-    :schedule_at
-  ]
-
   @required_fields [
     :endpoint,
     :event_type,
@@ -28,7 +16,7 @@ defmodule Schema.Webhook do
   ]
 
   @primary_key false
-  @derive {Jason.Encoder, only: @valied_required}
+  @derive {Jason.Encoder, only: @required_fields}
   embedded_schema do
     field(:endpoint, :string)
     field(:event_type, :string)
@@ -44,7 +32,7 @@ defmodule Schema.Webhook do
   def changeset(message) do
     %__MODULE__{}
     |> cast(message, @required_fields)
-    |> validate_required(@valied_required)
+    |> validate_required(@required_fields)
     |> apply_changes()
   end
 end
