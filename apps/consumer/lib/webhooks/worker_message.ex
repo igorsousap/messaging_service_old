@@ -23,7 +23,6 @@ defmodule Webhooks.WorkerMessage do
       "Trying send message to #{endpoint}, from client: #{client} and event #{event_type} at attempt #{attempt}"
     )
 
-    IO.inspect(args, label: :args)
 
     with {:ok, %Tesla.Env{status: 200}} <- ClientMessage.send_webhook(data, endpoint) do
       Logger.info(
