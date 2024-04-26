@@ -35,6 +35,8 @@ defmodule ProducerMessage do
           value_to_convert: value_to_convert
         } = params
       ) do
+    currencie_from = String.upcase(currencie_from)
+    currencie_to = String.upcase(currencie_to)
     valued_converted = Converter.converter_table(currencie_from, currencie_to, value_to_convert)
     params = Map.put(params, :message_id, Ecto.UUID.autogenerate())
 
