@@ -1,5 +1,5 @@
 defmodule Webhooks.WorkerMessage do
-  use Oban.Worker, max_attempts: 3
+  use Oban.Worker, max_attempts: 4
 
   require Logger
 
@@ -8,18 +8,22 @@ defmodule Webhooks.WorkerMessage do
   @impl Oban.Worker
   @spec perform(Oban.Job.t()) ::
           {:error, :no_scheme | :not_send | :nxdomain} | {:ok, :success_send}
-  def perform(%Oban.Job{
-        args:
-          %{
-            "client" => client,
-            "endpoint" => endpoint,
-            "event_type" => event_type
-          } = data,
-        attempt: attempt
-      }) do
+  def perform(
+        %Oban.Job{
+          args:
+            %{
+              "client" => client,
+              "endpoint" => endpoint,
+              "event_type" => event_type
+            } = data,
+          attempt: attempt
+        } = args
+      ) do
     Logger.info(
       "Trying send message to #{endpoint}, from client: #{client} and event #{event_type} at attempt #{attempt}"
     )
+
+    IO.inspect(args, label: :args)
 
     with {:ok, %Tesla.Env{status: 200}} <- ClientMessage.send_webhook(data, endpoint) do
       Logger.info(
