@@ -20,19 +20,19 @@ defmodule Persistence.WebhooksEndpoints.WebhookEndpoint do
   Can receive a struct for update a data or nothing and return a empyt struct to be created on database
   ## Examples
     case for a update a existing data
-      iex> Persistence.WebhooksEndpoints.WebhookEndpoint(
-        %Persistence.WebhooksEndpoints.WebhookEndpoint{
-          "client" => "teste",
-          "event_type" => "send.message.converter",
-          "endpoint" => "https://webhook.site/68d090b2-e5ad-40d3-a990-b3dc45dcf17c"
-        },
+      iex> Persistence.WebhooksEndpoints.WebhookEndpoint.changeset(
+         %Persistence.WebhooksEndpoints.WebhookEndpoint{
+                   client: "teste",
+                   event_type: "send.message.converter",
+                   endpoint: "https://webhook.site/68d090b2-e5ad-40d3-a990-b3dc45dcf17c"
+                 },
         %{
           "client" => "teste",
           "event_type" => "send.message.converter",
           "endpoint" => "https://webhook.site/68d090b2-e5ad-40d3-a990-b3dc45dcf17c/updated"
         })
   Case for a insert a new data
-      iex> Persistence.WebhooksEndpoints.WebhookEndpoint(
+      iex> Persistence.WebhooksEndpoints.WebhookEndpoint.cahngeset(
         %{
           "client" => "teste",
           "event_type" => "send.message.converter",
@@ -60,7 +60,7 @@ defmodule Persistence.WebhooksEndpoints.WebhookEndpoint do
   Receive a map fo make a query to a Repo functions
   ## Examples
     case for a update a existing data
-      iex> Persistence.WebhooksEndpoints.WebhookEndpoint.query(%{client => "teste"})
+      iex> Persistence.WebhooksEndpoints.WebhookEndpoint.query(%{"client" => "teste"})
 
   """
   @spec query(map()) :: Ecto.Query.t()

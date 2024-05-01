@@ -11,7 +11,7 @@ defmodule WebhookService.MixProject do
   end
 
   def application do
-    [applications: [:logger, :kaffe, :persistence]]
+    [applications: [:logger, :kaffe, :persistence, :consumer]]
   end
 
   # Dependencies listed here are available only for this

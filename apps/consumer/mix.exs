@@ -1,5 +1,5 @@
 defmodule Consumer.MixProject do
-  use Mix.Project
+  use Mix.Project, async: true
 
   def project do
     [
