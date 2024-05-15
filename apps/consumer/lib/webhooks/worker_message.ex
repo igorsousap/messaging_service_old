@@ -8,21 +8,18 @@ defmodule Webhooks.WorkerMessage do
   @impl Oban.Worker
   @spec perform(Oban.Job.t()) ::
           {:error, :no_scheme | :not_send | :nxdomain} | {:ok, :success_send}
-  def perform(
-        %Oban.Job{
-          args:
-            %{
-              "client" => client,
-              "endpoint" => endpoint,
-              "event_type" => event_type
-            } = data,
-          attempt: attempt
-        } = args
-      ) do
+  def perform(%Oban.Job{
+        args:
+          %{
+            "client" => client,
+            "endpoint" => endpoint,
+            "event_type" => event_type
+          } = data,
+        attempt: attempt
+      }) do
     Logger.info(
       "Trying send message to #{endpoint}, from client: #{client} and event #{event_type} at attempt #{attempt}"
     )
-
 
     with {:ok, %Tesla.Env{status: 200}} <- ClientMessage.send_webhook(data, endpoint) do
       Logger.info(
